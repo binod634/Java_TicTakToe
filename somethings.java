@@ -21,13 +21,18 @@ public class somethings {
         //     System.out.println(obj1.isGameOver().toString());
         // }
 
-        obj1.present();
+        while(obj1.isGameOver() == Player.NoOne) {
+            obj1.present();
+            obj1.plotData(obj1.currentPlayer);
+            obj1.changeCurrentPlayer();
+        }
     }
 }
 
 
 class viewmodel {
     Player[][] boardData;
+    Player currentPlayer = Player.First;
     public void boardModel() {
         boardData = new Player[3][3];
     }
@@ -106,5 +111,21 @@ class viewmodel {
         Scanner scanob = new Scanner(System.in);
         System.out.println("Player: "+plrname.name());
         int value = scanob.nextInt();
+        if ((value < 00)  || (value > 22) || (value/10 > 2) || (value%10 > 2)) {
+            throw new RuntimeException("Not allowded");
+        } else {
+            int a1 = value/10;
+            int a2 = value%10;
+            if (boardData[a1][a2]  != Player.NoOne) {
+                throw new ArithmeticException("Already found somethings.");
+            } else {
+                boardData[a1][a2] = plrname;
+            }
+        }
+
+    }
+
+    public void changeCurrentPlayer() {
+        currentPlayer = (currentPlayer == Player.First) ? Player.Second : Player.First;
     }
 }
