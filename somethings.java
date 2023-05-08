@@ -14,8 +14,12 @@ public class somethings {
         obj1.render();
 
         // for testing purpose
-        obj1.random();
+        // obj1.random();
 
+        // if (true) {
+        //     System.out.print("Checking for isGameOver:");
+        //     System.out.println(obj1.isGameOver().toString());
+        // }
 
         obj1.present();
     }
@@ -65,7 +69,42 @@ class viewmodel {
         boardData[0][0] = Player.First;
         boardData[2][0] = Player.First;
         boardData[0][2] = Player.Second;
-        boardData[1][0] = Player.Second;
+        boardData[1][0] = Player.First;
         boardData[2][2] = Player.Second;
+    }
+
+    public Player isGameOver() {
+        // check linear horizontal
+        for (int i=0;i<3 ;i++ ) {
+            if ((boardData[i][0] == boardData[i][1] && boardData[i][1] == boardData[i][2]) && (boardData[i][0] != Player.NoOne)) {
+                return boardData[i][0];
+            }
+        }
+
+        // for linear vertical
+        for (int i=0; i<3; i++) {
+            if ((boardData[0][i] == boardData[1][i] && boardData[1][i] == boardData[2][i]) && (boardData[0][i] != Player.NoOne)) {
+                return boardData[0][i];
+            }
+        }
+        
+        // for foreward diagonal
+        if ((boardData[0][0] == boardData[1][1] && boardData[1][1] == boardData[2][2]) && (boardData[0][0] != Player.NoOne))  {
+            return boardData[0][0];
+        }
+
+        // for backward diagonal
+        if ((boardData[0][2] == boardData[1][1] &&  boardData[1][1] == boardData[2][0]) && (boardData[0][2] != Player.NoOne))  {
+            return boardData[0][0];
+        }
+
+        return Player.NoOne;
+
+    }
+
+    public void plotData(Player plrname) {
+        Scanner scanob = new Scanner(System.in);
+        System.out.println("Player: "+plrname.name());
+        int value = scanob.nextInt();
     }
 }
