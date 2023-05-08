@@ -6,6 +6,12 @@ enum Player {
     NoOne
 }
 
+enum won {
+    First,
+    Second,
+    Draw
+}
+
 public class somethings {
     public static void main(String args[]) {
         // for render
@@ -21,11 +27,12 @@ public class somethings {
         //     System.out.println(obj1.isGameOver().toString());
         // }
 
-        while(obj1.isGameOver() == Player.NoOne) {
+        while((obj1.isGameOver() == Player.NoOne) && obj1.isfreePlace()) {
             obj1.present();
             obj1.plotData(obj1.currentPlayer);
             obj1.changeCurrentPlayer();
         }
+        obj1.playerMsg(won.Draw);
     }
 }
 
@@ -127,5 +134,20 @@ class viewmodel {
 
     public void changeCurrentPlayer() {
         currentPlayer = (currentPlayer == Player.First) ? Player.Second : Player.First;
+    }
+
+    public boolean isfreePlace() {
+        for (int i=0; i<3 ; i++  ) {
+            for (int j=0; j<3; j++ ) {
+                if (boardData[i][j] == Player.NoOne) {
+                    return true;
+                }
+            }   
+        }
+        return false;
+    }
+
+    public void playerMsg(won msg) {
+        System.out.println("=========================================================" + msg.name() + "============================================");
     }
 }
